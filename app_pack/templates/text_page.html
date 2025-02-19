@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/text_page.css') }}">
+</head>
+
+<body>
+    <div class="title">Очень большой, невероятно удобный аниме каталог с простым и понятным интерфейсом
+        переродился в интернете, как верный спутник самого красивого и умного Отаку, или же просто: BanAn</div>
+    <div class="text">
+        <div class="text_head">{{ head }}</div>
+        <div class="text_body">{{ body|safe }}</div>
+        <div class="text_coln">{{ colontitul }}</div>
+    </div>>
+</body>
+</html>

@@ -1,0 +1,152 @@
+@font-face {
+  font-family: "SacramentoRegular";
+  font-style: normal;
+  font-weight: 400;
+  src: local("SacramentoRegular"),
+       url("/static/fonts/SacramentoRegular.woff") format("woff");
+}
+
+body {
+  background-color: hwb(0 22% 100% / 1);
+  }
+
+div[class="upper_colon"] {
+  width: 100%;
+  margin: auto;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+div[class="head"] {
+  width: 100%;
+  display: flex;
+  margin: auto;
+  }
+
+div[class="right_pole"] {
+  width: 5%;
+  }
+
+div[class="web_title"] {
+  width: 60%;
+  margin: auto;
+  min-height: 200px;
+  color: hwb(0 100% 0% / 1);
+  font-size: 40px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "SacramentoRegular";
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+form {
+  border: 5px solid hwb(25 0% 20% / 1);
+  background-color:hwb(0 0% 100% / 1);
+  border-radius: 50px;
+  width: 35%;
+  margin: auto;
+  }
+
+div[class="indent"] {
+  width: 100%;
+  margin: auto;
+  min-height: 30px;
+  }
+
+div[class="form_field"] {
+  width: 80%;
+  margin: auto;
+  }
+
+div[class="lable"] {
+  color: hwb(25 0% 20% / 1);
+  width: 100%;
+  font-size: 50px;
+  font-style: italic;
+  }
+
+div[class="field"] {
+  width: 100%;
+  background-color:hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  }
+
+div[class="field_remember"] {
+  width: 100%;
+  display: flex;
+  }
+
+div[class="remember"] {
+  width: 30px;
+  }
+
+div[class="lable_remember"] {
+  color: hwb(25 0% 20% / 1);
+  font-size: 30px;
+  font-style: italic;
+  margin-left: 20px;
+  }
+
+div[class="sumbit"] {
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  }
+
+input[id="remember"] {
+  height: 30px;
+  width: 30px;
+  font-size: 40px;
+  }
+
+input[id="submit"] {
+  color: hwb(25 0% 20% / 1);
+  border: 1px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  height: 50px;
+  font-size: 40px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  }
+
+input[id="registration"] {
+  color: hwb(25 0% 20% / 1);
+  border: 1px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  height: 50px;
+  float: right;
+  font-size: 40px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  }
+
+div[class="reset"] {
+  margin: auto;
+  text-align: center;
+  }
+
+a[id="reset"] {
+  color: hwb(25 0% 20% / 1);
+  font-size: 20px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  }
+
+div[class="flash"] {
+  margin: auto;
+  text-align: center;
+  }
+
+spam {
+  color: hwb(25 0% 20% / 1);
+  font-size: 20px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  }

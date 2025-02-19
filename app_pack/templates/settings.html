@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" name="referrer" content="no-referrer">
+    <title>Настройки</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <style>
+      {% for field in form if field.name != "csrf_token" %}
+          #{{ field.name }}_error {
+      		font-size: 20px;
+      		color: red;
+      		}
+          {% if field.name != "submit" %}
+              input[id="{{field.name}}"] {
+				color: hwb(25 0% 20% / 1);
+				background-color: hwb(0 22% 100% / 1);
+				border-radius: 20px;
+				width: 100%;
+				height: 50px;
+				font-size: 30px;
+				}
+          {% endif %}
+      {% endfor %}
+    </style>
+</head>
+
+<body>
+    <div class="title">Очень большой, невероятно удобный аниме каталог с простым и понятным интерфейсом
+        переродился в интернете, как верный спутник самого красивого и умного Отаку, или же просто: BanAn</div>
+
+    <div class="center">
+        <div class="left-pole">
+            <div class="flex_box">
+                <div class="menu">
+                    <div class="indent"></div>
+                    <div class="bottom">
+                        <a href="{{ url_for('main', id=1) }}" class="bottom">Главная</a>
+                    </div>
+
+                    <div class="indent"></div>
+                    <div class="bottom" id="genres_bottom">
+                        <a class="bottom">Жанры</a>
+                    </div>
+                    <div class="genres_box">
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[:9] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[9:18] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[18:] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if current_user.is_authenticated %}
+                        <div class="indent"></div>
+                        <div class="bottom">
+                            <a href="{{ url_for('my_titles', category='in-viewing', id=1) }}" class="bottom">Мои тайтлы</a>
+                        </div>
+
+                        <div class="indent"></div>
+                        <div class="bottom">
+                            <a href="{{ url_for('settings') }}" class="bottom">Настройки</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="indent"></div>
+                    <div class="bottom">
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}" class="bottom">Выход</a>
+                        {% else %}
+                        <a href="{{ url_for('login') }}" class="bottom">Вход</a>
+                        {% endif %}
+                    </div>
+                    <div class="indent"></div>
+                </div>
+
+                <div class="indent"></div>
+
+                <form class="search" action="{{ url_for('search', id=1) }}" method="post" novalidate>
+                    <div class="indent"></div>
+                    <div class="search">
+                        <input id="search" type="text" name="search_data" placeholder="Поиск" autocomplete="off">
+                    </div>
+                    <div class="indent"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="body">
+            <div class="indent_body"></div>
+
+            {% for category, message in  get_flashed_messages(with_categories=true) %}
+				{% if category == 'success_change' %}
+					<div class="flash">
+						<spam class="{{ category }}">{{ message }}</spam>
+					</div>
+				{% endif %}
+    		{% endfor %}
+
+            <div class="lable">Смена пароля</div>
+
+            <form action="" method="post">
+                {{ form.csrf_token() }}
+
+                {% for field in form if field.name != "csrf_token" %}
+		            <div class="form_field">
+		            {% if field.name != "submit" %}
+			            <div class="field">{{ field(placeholder=placeholders[field.name]) }}</div>
+		            {% elif field.name == "submit" %}
+			            <div class="submit">{{ field }}</div>
+		            {% endif %}
+		            <small id="{{ field.name }}_error"></small>
+		            {% for error in field.errors %}
+			            <script>
+				            const field = document.getElementById("{{ field.name }}");
+				            field.classList.add('invalid');
+				            {{ field.name }}_error.innerHTML = "{{ error }}";
+			            </script>
+		            {% endfor %}
+		            </div>
+                {% endfor %}
+            </form>
+            <div class="indent_body"></div>
+            <div class="lable">Удаление аккаунта</div>
+            <form class="delete_acc" action="{{ url_for('settings') }}" method="post">
+                <div class="delete_acc">
+                    <input id="delete_acc" type="text" name="delete_acc" placeholder="УДАЛИТЬ" autocomplete="off" required pattern="УДАЛИТЬ">
+                    <small id="delete_acc_error"></small>
+                </div>
+            </form>
+            <div class="indent_body"></div>
+
+        </div>
+        <div class="right-pole"></div>
+    </div>
+
+    <div class="colontitul">
+        <a class='colontitul' href="{{ url_for('oferta') }}">Пользовательское соглашение</a>
+        <a class='colontitul' href="{{ url_for('privacy') }}">Политика конфиденциальности</a>
+        <a class='colontitul' href="{{ url_for('right_holders') }}">Для правообладателей</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

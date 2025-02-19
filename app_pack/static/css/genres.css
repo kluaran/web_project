@@ -1,0 +1,335 @@
+@font-face {
+  font-family: "SacramentoRegular";
+  font-style: normal;
+  font-weight: 400;
+  src: local("SacramentoRegular"),
+       url("/static/fonts/SacramentoRegular.woff") format("woff");
+}
+
+body {
+  background-color: hwb(0 22% 100% / 1);
+  }
+
+div[class="title"] {
+  width: 1000px;
+  margin: auto;
+  min-height: 200px;
+  color: hwb(0 100% 0% / 1);
+  font-size: 40px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "SacramentoRegular";
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+div[class="center"] {
+  width: 100%;
+  margin-left: 600;
+  margin-right: 800;
+  display: flex;
+  }
+
+div[class="left-pole"] {
+  width: 15%;
+  }
+
+div[class="right-pole"] {
+  width: 15%;
+  }
+
+div[class="flex_box"] {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  }
+
+div[class="menu"] {
+  border: 5px solid hwb(25 0% 20% / 1);
+  background-color:hwb(0 0% 100% / 1);
+  border-radius: 50px;
+  width: 90%;
+  margin: auto;
+  }
+
+div[class="bottom"] {
+  border: 1px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  height: 40px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+a[class="bottom"] {
+  color: hwb(25 0% 20% / 1);
+  font-size: 25px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  text-decoration: none;
+  cursor: pointer;
+  }
+
+div[class="indent"] {
+  width: 100%;
+  margin: auto;
+  min-height: 15px;
+  }
+
+form[class="search"] {
+  border: 5px solid hwb(25 0% 20% / 1);
+  background-color:hwb(0 0% 100% / 1);
+  border-radius: 50px;
+  width: 90%;
+  margin: auto;
+  }
+
+div[class="search"] {
+  width: 80%;
+  margin: auto;
+  }
+
+input[id="search"] {
+  border: 0px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  color: hwb(25 0% 20% / 1);
+  font-size: 25px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+div[class="body"] {
+  border: 5px solid hwb(25 0% 20% / 1);
+  background-color:hwb(0 0% 100% / 1);
+  border-radius: 50px;
+  width: 70%;
+  min-height: 400px;
+  margin: auto;
+  }
+
+div[class="indent_body"] {
+  width: 100%;
+  margin: auto;
+  min-height: 40px;
+  }
+
+div[class="anime"] {
+  width: 90%;
+  margin: auto;
+  color: hwb(0 100% 0% / 1);
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "Times", Times New Roman, serif;
+  display: flex;
+  }
+
+div[class="cover"] {
+  width: 27%;
+  margin: 0 auto 0 auto;
+  }
+
+img[class="cover"] {
+  width: 100%;
+  border-radius: 50px;
+  }
+
+div[class="space"] {
+  width: 5%;
+  margin: auto;
+  }
+
+div[class="information"] {
+  width: 68%;
+  }
+
+div[class="anime_name"] {
+  color: hwb(25 0% 20% / 1);
+  font-size: 40px;
+  }
+
+summary[class="description"] {
+  width: 80%;
+  margin: auto;
+  color: hwb(0 100% 0% / 1);
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "Times", Times New Roman, serif;
+  }
+
+div[class="description"] {
+  width: 90%;
+  margin: auto;
+  color: hwb(0 100% 0% / 1);
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  text-align: justify;
+  font-family: "Times", Times New Roman, serif;
+  }
+
+div[class="line"] {
+  width: 85%;
+  height: 5px;
+  margin: auto;
+  background-color: hwb(0 22% 100% / 1);
+  }
+
+div[class="colontitul"] {
+  background-color: hwb(0 22% 100% / 1);
+  width: 70%;
+  height: 100px;
+  margin: auto;
+  font-size: 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  }
+
+div[class="pages"] {
+  margin: auto;
+  display: flex;
+  color: hwb(25 0% 20% / 1);
+  font-size: 25px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+div[class="page"] {
+  border: 1px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 10px;
+  height: 40px;
+  min-width: 40px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+a[class="pages"] {
+  color: hwb(25 0% 20% / 1);
+  font-size: 25px;
+  font-style: italic;
+  font-family: "Times", Times New Roman, serif;
+  text-decoration: none;
+  }
+
+div[class="space_page"] {
+  width: 5px;
+  }
+
+div[class="nothing"] {
+  width: 90%;
+  margin: auto;
+  color: hwb(0 100% 0% / 1);
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "Times", Times New Roman, serif;
+  display: flex;
+  }
+
+a[class="anime_name"] {
+  color: hwb(25 0% 20% / 1);
+  text-decoration: none;
+  }
+
+div[class="bottoms_for_subscribe"] {
+  display: flex;
+  height: 50px;
+  width: 420px;
+  }
+
+div[class="to_add_in_my_list"] {
+  border: 1px solid hwb(0 22% 100% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  height: 40px;
+  width: 200px;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  }
+
+div[class="to_add_in_my_list_press"] {
+  border: 5px solid hwb(25 0% 20% / 1);
+  background-color: hwb(0 22% 100% / 1);
+  border-radius: 20px;
+  color: hwb(25 0% 20% / 1);
+  height: 40px;
+  width: 200px;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  }
+
+div[class="genres_box"] {
+  position: absolute;
+  background-color:hwb(0 0% 100% / 0.6);
+  border: 5px solid hwb(25 0% 20% / 1);
+  border-radius: 20px;
+  top: 0px;
+  right: 0px;
+  bottom: 0;
+  left: 0;
+  margin: 75px auto auto 85%;
+  z-index: 1;
+  width: 450px;
+  height: 400px;
+  visibility: hidden;
+  display: flex;
+  }
+
+div[class="genres_box_1"] {
+  width: 150px;
+  }
+
+div[class="any_genres"] {
+  width: 140px;
+  min-height: 25px;
+  margin: auto;
+  display: flex;
+  background-color:hwb(0 22% 100% / 1);
+  border-radius: 12.5px;
+  color: hwb(0 100% 0% / 1);
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 20px 20px 40px hwb(0 0% 100% / 1);
+  font-family: "Times", Times New Roman, serif;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  }
+
+a[class="any_genres"] {
+  color: hwb(0 100% 0% / 1);
+  text-decoration: none;
+  }
+
+a[class='colontitul'] {
+  margin: auto;
+  color: hwb(0 0% 100% / 1);
+  }

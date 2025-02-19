@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" name="referrer" content="no-referrer">
+    <title>{{ anime.name }}</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/title.css') }}">
+    <style>
+        div[id="{{ id }}"] {
+            border: 5px solid hwb(25 0% 20% / 1);
+            background-color: hwb(0 22% 100% / 1);
+            border-radius: 10px;
+            height: 40px;
+            min-width: 40px;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="title">Очень большой, невероятно удобный аниме каталог с простым и понятным интерфейсом
+        переродился в интернете, как верный спутник самого красивого и умного Отаку, или же просто: BanAn</div>
+
+    <div class="center">
+        <div class="left-pole">
+            <div class="flex_box">
+                <div class="menu">
+                    <div class="indent"></div>
+                    <div class="bottom">
+                        <a href="{{ url_for('main', id=1) }}" class="bottom">Главная</a>
+                    </div>
+
+                    <div class="indent"></div>
+                    <div class="bottom" id="genres_bottom">
+                        <a class="bottom">Жанры</a>
+                    </div>
+                    <div class="genres_box">
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[:9] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[9:18] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="genres_box_1">
+                        {% for gen in genres_list[18:] %}
+                            <div class="indent"></div>
+                            <div class="any_genres" id="genre_{{ genres_list.index(gen) }}">
+                                <a href="{{ url_for('genres', gen_id=genres_list.index(gen)+1, id=1) }}" class="any_genres">{{ gen }}</a>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+
+                    {% if current_user.is_authenticated %}
+                        <div class="indent"></div>
+                        <div class="bottom">
+                            <a href="{{ url_for('my_titles', category='in-viewing', id=1) }}" class="bottom">Мои тайтлы</a>
+                        </div>
+
+                        <div class="indent"></div>
+                        <div class="bottom">
+                            <a href="{{ url_for('settings') }}" class="bottom">Настройки</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="indent"></div>
+                    <div class="bottom">
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}" class="bottom">Выход</a>
+                        {% else %}
+                        <a href="{{ url_for('login') }}" class="bottom">Вход</a>
+                        {% endif %}
+                    </div>
+                    <div class="indent"></div>
+                </div>
+
+                <div class="indent"></div>
+
+                <form class="search" action="{{ url_for('search', id=1) }}" method="post" novalidate>
+                    <div class="indent"></div>
+                    <div class="search">
+                        <input id="search" type="text" name="search_data" placeholder="Поиск" autocomplete="off">
+                    </div>
+                    <div class="indent"></div>
+                </form>
+            </div>
+        </div>
+
+        <div class="body">
+                <div class="indent_body"></div>
+                <div class="anime">
+                    <div class="cover">
+                        <img class="cover" src="https://v5.vost.pw/{{ anime.cover }}">
+                    </div>
+                    <div class="spaсe"></div>
+                    <div class="information">
+                        <div class="anime_name">{{ anime.name }}</div>
+
+                        {% for season in anime.seasons %}
+                        {% if season.id == max_update(anime) %}
+                        <div class="series">Последний прогресс: {{ season.season }}
+                            <span style="color: hwb(25 0% 20% / 1);">{{ season.series_now }} из {{ season.series_all }}</span>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if current_user.is_authenticated %}
+                        <div class="bottoms_for_subscribe">
+                            {% if (anime.id, ) in list_titles_id and current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id == get_last_seria(anime) %}
+                            <div class="to_add_in_my_list_press" id="viewed_{{ anime.id }}">Уже смотрел</div>
+                            {% else %}
+                            <div class="to_add_in_my_list" id="viewed_{{ anime.id }}">Уже смотрел</div>
+                            {% endif %}
+                            <div class="spaсe"></div>
+                            {% if (anime.id, ) in list_titles_id and not current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id %}
+                            <div class="to_add_in_my_list_press" id="want_{{ anime.id }}">Хочу посмотреть</div>
+                            {% else %}
+                            <div class="to_add_in_my_list" id="want_{{ anime.id }}">Хочу посмотреть</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="indent_body"></div>
+                        <div class="year">Год выхода: {{ anime.year }}</div>
+                        <div class="genre">Жанры: {{ anime.genre }}</div>
+                        <div class="rating">Рейтинг: {{ anime.rating }}</div>
+                        <div class="seasons">
+                            <details>
+                                <summary>Сезоны:</summary>
+                                {% for season in anime.seasons %}
+                                    <div>{{ season.season }}
+                                        <span style="color: hwb(25 0% 20% / 1);">{{ season.series_now }} из {{ season.series_all }}</span>
+                                    </div>
+                                {% endfor %}
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                <details>
+                    <summary class="description">Описание:</summary>
+                    <div class="description">{{ anime.description }}</div>
+                </details>
+                <div class="indent_body"></div>
+
+                        <div id="video">
+                            <div class="choice_season">Сезон:</div>
+                            <div class="any_seasons">
+                                {% for season in anime.seasons %}
+                                    <div class="any_season" id="season_{{ season.id }}">{{ season.season }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="choice_seria">Серия:</div>
+                            {% for season in anime.seasons %}
+                            <div class="any_series" id="its_season_{{ season.id }}">
+                                {% for seria in season.series %}
+                                    <div class="any_seria" id="seria_{{ seria.id }}">{{ seria.nomber }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+
+                            <div class="video-control" id="video-play"></div>
+                            <div class="video-control" id="video-over"></div>
+
+                            <div class="previous_seria">«</div>
+                            <div class="next_seria">»</div>
+
+                            <div class="volume-change">
+                                <div class="volume-max">
+                                    <div class="volume-now"></div>
+                                </div>
+                            </div>
+
+                            <div class="rewind-90">
+                                    +1.5 мин
+                            </div>
+
+                            <div class="rewind-60">
+                                    +1 мин
+                            </div>
+
+                            <div class="bottom-line-2">
+                                <div class="rewind-30">
+                                    +30 сек
+                                </div>
+                                <div class="volume">
+                                    <div class="volume-img"></div>
+                                </div>
+                                <div class="expand">
+                                    <div class="expand-img"></div>
+                                </div>
+                            </div>
+
+                            <div class="bottom-line">
+                                <div class="video-time" id="video-time-now">00:00</div>
+                                <div class="video-progress">
+                                    <div class="progress-time"><span class="video-time-change">00:00</span></div>
+                                    <progress value="0" max="100" class="video-progress" id="video-progress"></progress>
+                                </div>
+                                <div class="video-time" id="video-time-all">00:00</div>
+                            </div>
+
+                            <video id="myVideo">
+                                {% if current_user.is_authenticated and (anime.id, ) in list_titles_id and current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id %}
+                                    <source class="mp4_720" type="video/mp4" />
+                                    <source class="mp4" id="its_seria_{{ current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id }}" type="video/mp4" />
+                                {% else %}
+                                    <source class="mp4_720" type="video/mp4" />
+                                    <source class="mp4" id="its_seria_{{ anime.seasons[0].series[0].id }}" type="video/mp4" />
+                                {% endif %}
+                                Что то пошло не по плану, сумимасэн.
+                            </video>
+                        </div>
+
+                <div class="indent_body"></div>
+        </div>
+        <div class="right-pole"></div>
+    </div>
+
+    <div class="colontitul">
+        <a class='colontitul' href="{{ url_for('oferta') }}">Пользовательское соглашение</a>
+        <a class='colontitul' href="{{ url_for('privacy') }}">Политика конфиденциальности</a>
+        <a class='colontitul' href="{{ url_for('right_holders') }}">Для правообладателей</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/title.js') }}"></script>
+</body>
+</html>
