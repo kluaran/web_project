@@ -1,3 +1,6 @@
+"""Модуль с моделями таблиц базы данных."""
+
+
 from datetime import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,10 +11,16 @@ from app_pack import db, login
 
 @login.user_loader
 def load_user(id):
+    """Функция авторизующая пользователя."""
+
     return db.session.get(User, int(id))
 
 
 class TemporaryUser(db.Model):
+    """Модель временного пользователя.
+    set_password устанавливает хэшированный пароль,
+    check_password проверяет соответствие переданного и хэшированного паролей."""
+
     __tablename__ = 'temporary_users'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -27,6 +36,10 @@ class TemporaryUser(db.Model):
 
 
 class User(db.Model, UserMixin):
+    """Модель постоянного пользователя.
+    set_password устанавливает хэшированный пароль,
+    check_password проверяет соответствие переданного и хэшированного паролей."""
+
     __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -42,6 +55,8 @@ class User(db.Model, UserMixin):
 
 
 class Titles(db.Model):
+    """Модель таблицы с тайтлами."""
+
     __tablename__ = 'titles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -56,6 +71,8 @@ class Titles(db.Model):
 
 
 class Seasons(db.Model):
+    """Модель таблицы с сезонами."""
+
     __tablename__ = 'seasons'
     id = db.Column(db.Integer(), primary_key=True)
     title_id = db.Column(db.Integer(), db.ForeignKey('titles.id'), nullable=False)
@@ -68,6 +85,8 @@ class Seasons(db.Model):
 
 
 class Series(db.Model):
+    """Модель таблицы с сериями."""
+
     __tablename__ = 'series'
     id = db.Column(db.Integer(), primary_key=True)
     season_id = db.Column(db.Integer(), db.ForeignKey('seasons.id'), nullable=False)
@@ -77,6 +96,9 @@ class Series(db.Model):
 
 
 class UsersTitles(db.Model):
+    """Модель таблицы с тайтлами, добавленными пользователями в разделы
+    'просмотрено', 'запланировано' и 'в процессе просмотра'."""
+
     __tablename__ = 'users_titles'
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'), nullable=False)

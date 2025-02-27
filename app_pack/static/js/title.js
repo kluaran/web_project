@@ -4,6 +4,7 @@ var videoControls = document.getElementsByClassName('video-control');
 var video = document.getElementById('myVideo');
 var videoUrl = document.getElementsByClassName('mp4')[0];
 var videoUrlDop = document.getElementsByClassName('mp4_720')[0];
+var videoUrlFrame = document.getElementsByClassName('mp4_frame')[0];
 var progressBar = document.getElementById('video-progress');
 var nowTime = document.getElementById('video-time-now');
 var allTime = document.getElementById('video-time-all');
@@ -245,6 +246,7 @@ rewindThird.addEventListener('click',(event) => {
     });
 
 
+
 //ОТПРАВЛЯЕМ ЗАПРОСЫ НА СЕРВЕР!!!!!!!
 function requestToServer(method, data) {
     const xhr = new XMLHttpRequest(); // создаем объект запроса
@@ -254,8 +256,10 @@ function requestToServer(method, data) {
         if (xhr.readyState === 4) { // если запрос завершен
             if (xhr.status === 200) { // если статус код ответа 200 OK
                 if (xhr.responseText.includes('http://video.animetop.info/')) {
-                    videoUrl.src = xhr.responseText; // выводим ответ сервера
-                    videoUrlDop.src = xhr.responseText.replace('info/', 'info/720/');
+                    urls_list = xhr.responseText.split(', ')
+                    videoUrl.src = urls_list[0]; // выводим ответ сервера
+                    videoUrlDop.src = urls_list[0].replace('info/', 'info/720/');
+                    videoUrlFrame.src = urls_list[1]
                     video.load();
                     video.pause();
                     for (let control of videoControls) {

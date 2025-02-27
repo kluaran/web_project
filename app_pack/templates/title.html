@@ -217,9 +217,11 @@
                                 {% if current_user.is_authenticated and (anime.id, ) in list_titles_id and current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id %}
                                     <source class="mp4_720" type="video/mp4" />
                                     <source class="mp4" id="its_seria_{{ current_user.users_titles[list_titles_id.index((anime.id, ))].seria_id }}" type="video/mp4" />
+                                    <source class="mp4_frame" type="video/mp4">
                                 {% else %}
                                     <source class="mp4_720" type="video/mp4" />
                                     <source class="mp4" id="its_seria_{{ anime.seasons[0].series[0].id }}" type="video/mp4" />
+                                    <source class="mp4_frame" type="video/mp4">
                                 {% endif %}
                                 Что то пошло не по плану, сумимасэн.
                             </video>
