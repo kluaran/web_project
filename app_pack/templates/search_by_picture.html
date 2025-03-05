@@ -1,34 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" name="referrer" content="no-referrer">
-    <title>Настройки</title>
+    <meta charset="UTF-8">
+    <title>Поиск тайтла по кадру</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
-    <style>
-      {% for field in form if field.name != "csrf_token" %}
-          #{{ field.name }}_error {
-      		font-size: 20px;
-      		color: red;
-      		}
-          {% if field.name != "submit" %}
-              input[id="{{field.name}}"] {
-				color: hwb(25 0% 20% / 1);
-				background-color: hwb(0 22% 100% / 1);
-				border-radius: 20px;
-				width: 100%;
-				height: 50px;
-				font-size: 30px;
-				}
-          {% endif %}
-      {% endfor %}
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_by_picture.css') }}">
 </head>
 
 <body>
     <div class="title">Очень большой, невероятно удобный аниме каталог с простым и понятным интерфейсом
         переродился в интернете, как верный спутник самого красивого и умного Отаку, или же просто: BanAn</div>
-
     <div class="center">
         <div class="left-pole">
             <div class="flex_box">
@@ -110,49 +91,52 @@
         </div>
 
         <div class="body">
-            <div class="indent_body"></div>
+            <div class="text_head">Поиск тайтла по кадру</div>
+            <div class="text_body">
 
-            {% for category, message in  get_flashed_messages(with_categories=true) %}
-				{% if category == 'success_change' %}
-					<div class="flash">
-						<spam class="{{ category }}">{{ message }}</spam>
-					</div>
-				{% endif %}
-    		{% endfor %}
+                <form action="{{ url_for('search_by_picture') }}" method="POST" enctype="multipart/form-data">
+                    <input class='url' type="text" name="image" placeholder="Введите URL картинки" autocomplete="off">
+                    <input id="real-input" type="file" name="image" hidden>
+                    <label for="real-input" class="file">
+                        Загрузить файл
+                    </label>
+                    <input class="submit" type="submit" >
+                </form>
+                <div class="indent_body"></div>
 
-            <div class="lable">Смена пароля</div>
+                {% if animes_data %}
+                    {% if animes_data['error'] %}
+                    <div class="error">
+                        <div class="indent_body"></div>
+                        Ни чего не найдено! Попробуйте использовать другю ссылку или файл.
+                        <div class="indent_body"></div>
+                    </div>
+                    {% elif animes_data['result'] %}
+                        {% for elem in animes_data['result'] %}
+                            <div class="indent_body"></div>
+                            <div class="name">
+                                <a class="name" href="https://anilist.co/anime/{{ elem['anilist'] }}/">{{ elem['filename'] }}</a>
+                            </div>
+                            <div class="similarity">
+                                Совпадение: {{ int(elem['similarity']*100) }}%
+                            </div>
+                            <div class="seria">
+                                Серия: {{ elem['episode'] }}, время: {{ int(elem['from']//60) }}:{{ int(elem['from']%60//10) }}{{ int(elem['from']%60%10) }}
+                            </div>
+                            <div class="vedeo">
+                                Видео отрывок:
+                            </div>
 
-            <form action="" method="post">
-                {{ form.csrf_token() }}
+                            <video class="player" src="{{ elem['video'] }}" controls></video>
+                            <div class="indent_body"></div>
+                            {% if elem != animes_data['result'][-1] %}
+                                <div class="line"></div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
 
-                {% for field in form if field.name != "csrf_token" %}
-		            <div class="form_field">
-		            {% if field.name != "submit" %}
-			            <div class="field">{{ field(placeholder=placeholders[field.name]) }}</div>
-		            {% elif field.name == "submit" %}
-			            <div class="submit">{{ field }}</div>
-		            {% endif %}
-		            <small id="{{ field.name }}_error"></small>
-		            {% for error in field.errors %}
-			            <script>
-				            const field = document.getElementById("{{ field.name }}");
-				            field.classList.add('invalid');
-				            {{ field.name }}_error.innerHTML = "{{ error }}";
-			            </script>
-		            {% endfor %}
-		            </div>
-                {% endfor %}
-            </form>
-            <div class="indent_body"></div>
-            <div class="lable">Удаление аккаунта</div>
-            <form class="delete_acc" action="{{ url_for('settings') }}" method="post">
-                <div class="delete_acc">
-                    <input id="delete_acc" type="text" name="delete_acc" placeholder="УДАЛИТЬ" autocomplete="off" required pattern="УДАЛИТЬ">
-                    <small id="delete_acc_error"></small>
-                </div>
-            </form>
-            <div class="indent_body"></div>
-
+            </div>
         </div>
         <div class="right-pole"></div>
     </div>
@@ -163,6 +147,7 @@
         <a class='colontitul' href="{{ url_for('right_holders') }}">Для правообладателей</a>
     </div>
 
-    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search_by_picture.js') }}"></script>
+
 </body>
 </html>

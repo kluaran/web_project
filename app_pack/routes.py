@@ -16,7 +16,7 @@ from app_pack.utils import (send_mail, get_ongoing, create_random_password, get_
                             get_in_viewing, change_password, delete_acc, add_titles_to_users, add_new_series_to_users,
                             delete_titles_from_users, get_amount_for_pagination, get_titles_for_catalogs,
                             get_object_by_id, get_object_by_filter, registration_t_user, get_doc_page_text,
-                            registration_user, add_to_db)
+                            registration_user, add_to_db, trace_moe_api)
 
 
 @app.route('/')
@@ -73,6 +73,24 @@ def genres(gen_id=1, id=1):
                            genres_list=genres_list,
                            list_titles_id=list_titles_id,
                            get_last_seria=get_last_seria)
+
+
+@app.route('/search-by-picture/', methods=['get', 'post'])
+def search_by_picture():
+    """Функция представление для странички поиска тайтла по скриншоту,
+    с использованием стороннего API."""
+
+    genres_list = get_genres()
+    if request.method == 'GET' or not any([request.files['image'].filename, request.form.get('image')]):
+        return render_template('search_by_picture.html',
+                               animes_data=None,
+                               genres_list=genres_list,
+                               int=int)
+    animes_data = trace_moe_api([request.files, request.form.get('image')])
+    return render_template('search_by_picture.html',
+                           animes_data=animes_data,
+                           genres_list=genres_list,
+                           int=int)
 
 
 @app.route('/my-titles/<category>/<int:id>/')

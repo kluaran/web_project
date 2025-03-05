@@ -326,3 +326,15 @@ def registration_user(conf_user):
                 password=conf_user.password)
     add_to_db(user)
     delete_from_db(conf_user)
+
+
+def trace_moe_api(image):
+    """Функция для обращения к API trace.moe"""
+
+    with requests.Session() as session:
+        if image[0]['image'].filename:
+            animes_data = session.post("https://api.trace.moe/search",
+                                       files=image[0]).json()
+            return animes_data
+        animes_data = session.post("https://api.trace.moe/search?&url="+image[1]).json()
+    return animes_data
